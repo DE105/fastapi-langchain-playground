@@ -1,0 +1,13 @@
+[project]
+name = "fastapi-langchain-playground"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.123.0",
+    "langchain>=1.1.0",
+    "langchain-anthropic>=1.2.0",
+    "langchain-google-genai>=3.2.0",
+    "langchain-openai>=1.1.0",
+]
