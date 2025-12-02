@@ -17,9 +17,13 @@
    ```bash
    .venv\\Scripts\\activate
    ```
-3. 运行示例（当前仅示例输出）
+3. 运行本地服务
    ```bash
    uv run python main.py
+   ```
+   或直接启动 uvicorn：
+   ```bash
+   uv run uvicorn app.main:app --reload
    ```
    当你添加 FastAPI 应用后，可用：
    ```bash
@@ -27,7 +31,8 @@
    ```
 
 ## 目录速览
-- `main.py`：当前示例入口
+- `app/main.py`：FastAPI 应用入口，含 `/health` 探活
+- `main.py`：便捷启动脚本（`uv run python main.py`）
 - `pyproject.toml`：项目元数据与依赖
 - `uv.lock`：锁定的依赖版本
 - `.python-version`：固定解释器版本
