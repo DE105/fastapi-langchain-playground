@@ -31,11 +31,42 @@
    ```
 
 ## 目录速览
-- `app/main.py`：FastAPI 应用入口，含 `/health` 探活
+- `app/main.py`：FastAPI 应用入口，统一挂载路由
+- `app/api/`：路由层，`health.py` 提供 `/health`
+- `app/core/`：核心配置与依赖（`config.py`、`deps.py`）
+- `app/models/`：Pydantic 数据模型
+- `app/services/`：业务服务层，编排链路
+- `app/chains/`：LangChain 链路/Agent 封装
+- `app/utils/`：通用工具
 - `main.py`：便捷启动脚本（`uv run python main.py`）
 - `pyproject.toml`：项目元数据与依赖
 - `uv.lock`：锁定的依赖版本
 - `.python-version`：固定解释器版本
+
+## LangChain + Gemini 最小示例
+1. 确保已设置环境变量（按需替换为你的 Key）：
+   ```bash
+   set GOOGLE_API_KEY=你的_Gemini_Key
+   ```
+2. 运行最小示例（使用 `gemini-2.5-flash`）：
+   ```bash
+   uv run python - <<'PY'
+   from app.chains.gemini import demo_chat
+   print(demo_chat("用一句话介绍 FastAPI 是什么？"))
+   PY
+   ```
+   若需自定义模型，修改 `demo_chat` 内的 `model_name` 即可。
+
+### Gemini Agent 示例（含工具调用与结构化输出）
+```bash
+uv run python - <<'PY'
+from app.chains.gemini_agent import demo_agent
+
+resp = demo_agent("北京今天的天气怎样？")
+print(resp)
+PY
+```
+默认调用示例工具 `get_weather` 并以结构化数据 `WeatherAnswer` 返回。将问题替换为你的场景即可。
 
 ## 常用 uv 命令
 - 添加依赖：`uv add "fastapi[standard]"`、`uv add "langchain>=1.1.0"`
